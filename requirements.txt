@@ -1,11 +1,1 @@
-# MCP server framework
-mcp[cli]>=1.9.0,<2.0.0
-
-# Database
-asyncpg>=0.29.0,<0.31.0
-
-# Observability
-opentelemetry-sdk>=1.24.0,<2.0.0
-opentelemetry-exporter-otlp>=1.24.0,<2.0.0
-langfuse>=2.0.0,<3.0.0
-# Test dependencies live in requirements-test.txt — never install them in Docker images.
+# All deps already in ghcr.io/narisun/ai-python-base. Add server-specific extras here as needed.

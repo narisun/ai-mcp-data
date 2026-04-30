@@ -1,32 +1,15 @@
-# ============================================================
-# tools/data-mcp/Dockerfile
 # Build context: monorepo root (docker build -f tools/data-mcp/Dockerfile .)
-# ============================================================
-FROM python:3.11-slim
+# After Phase 5 carve-out, build context is the MCP's own repo root.
+ARG BASE_TAG=3.11-sdk0.4.0
+FROM ghcr.io/narisun/ai-python-base:${BASE_TAG}
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        curl \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install shared SDK first (separate layer for cache efficiency)
-COPY platform-sdk/ /platform-sdk/
-RUN pip install --no-cache-dir /platform-sdk/
-
-# Install service dependencies
 COPY tools/data-mcp/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy service source
 COPY tools/data-mcp/src/ /app/src/
-# Shared MCP utilities (AgentContextMiddleware, verify_auth_context)
-COPY tools/shared/ /app/tools_shared/
 
-# Non-root user
-RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
 USER appuser
-
 EXPOSE 8080
-
 CMD ["python", "-m", "src.server"]
