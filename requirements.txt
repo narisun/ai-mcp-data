@@ -1,1 +1,1 @@
-# All deps already in ghcr.io/narisun/ai-python-base. Add server-specific extras here as needed.
+enterprise-ai-platform-sdk @ git+ssh://git@github.com/narisun/ai-platform-sdk.git@v0.4.0

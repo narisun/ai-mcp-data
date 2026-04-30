@@ -1,14 +1,15 @@
-# Build context: monorepo root (docker build -f tools/data-mcp/Dockerfile .)
-# After Phase 5 carve-out, build context is the MCP's own repo root.
+# ai-mcp-data — built on the SDK-bundled base image.
+# Base image (ghcr.io/narisun/ai-python-base) ships the SDK pre-installed;
+# we only add server-specific runtime extras here.
 ARG BASE_TAG=3.11-sdk0.4.0
 FROM ghcr.io/narisun/ai-python-base:${BASE_TAG}
 
 WORKDIR /app
 
-COPY tools/data-mcp/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements-runtime.txt .
+RUN pip install --no-cache-dir -r requirements-runtime.txt
 
-COPY tools/data-mcp/src/ /app/src/
+COPY src/ /app/src/
 
 USER appuser
 EXPOSE 8080
