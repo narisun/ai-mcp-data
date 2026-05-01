@@ -1,1 +1,1 @@
-enterprise-ai-platform-sdk @ git+ssh://git@github.com/narisun/ai-platform-sdk.git@v0.6.0
+enterprise-ai-platform-sdk @ git+ssh://git@github.com/narisun/ai-platform-sdk.git@v0.6.1
