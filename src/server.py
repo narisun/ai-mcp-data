@@ -1,12 +1,10 @@
-"""Backward-compatible entry point for data-mcp server.
+"""Backwards-compat entrypoint shim. Delegates to src.main.
 
-DEPRECATED: This module is maintained for backward compatibility.
-New code should import from main.py directly.
-
-This shim delegates to main.py which contains the refactored implementation
-following the enterprise OOP pattern (DataQueryService + DataMcpService + main.py).
+Uses service.run_with_registration so the MCP registers with the platform
+registry at process startup (FastMCP's SSE lifespan only runs per-connection,
+which is too late). See SDK 0.5.1 for details.
 """
-from .main import TRANSPORT, mcp
+from .main import TRANSPORT, mcp, service
 
 if __name__ == "__main__":
-    mcp.run(transport=TRANSPORT)
+    service.run_with_registration(mcp, TRANSPORT)
