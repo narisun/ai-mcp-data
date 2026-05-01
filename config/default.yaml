@@ -1,0 +1,44 @@
+# config/default.yaml — data-mcp base settings.
+environment: dev
+service_name: data-mcp
+agent_role: data_analyst_agent
+transport: sse
+port: 8080
+
+# OPA
+opa_url: http://opa:8181/v1/data/mcp/tools/allow
+opa_timeout_seconds: 2.0
+opa_max_retries: 2
+opa_retry_backoff: 0.2
+
+# Result guardrails
+max_result_bytes: 15000
+
+# Tool-result cache
+enable_tool_cache: true
+tool_cache_ttl_seconds: 300
+
+# Database (data-mcp queries Postgres)
+db_host: pgvector
+db_port: 5432
+db_user: admin
+db_pass: ${DB_PASS}
+db_name: ai_memory
+db_require_ssl: false
+statement_cache_size: 1024
+
+# Redis (cache backend)
+redis_host: redis
+redis_port: 6379
+redis_password: ${REDIS_PASSWORD}
+
+# Self-registration
+registry_url: http://ai-registry:8090
+service_url: http://data-mcp:8080
+service_version: "0.6.0"
+
+# Resilience
+cb_failure_threshold: 5
+cb_recovery_timeout: 30.0
+mcp_reconnect_backoff_cap: 60.0
+tool_call_timeout: 30.0
