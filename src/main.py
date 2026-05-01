@@ -37,4 +37,4 @@ service.register_tools(mcp)
 
 if __name__ == "__main__":
     log.info("mcp_server_starting", transport=TRANSPORT)
-    mcp.run(transport=TRANSPORT)
+    service.run_with_registration(mcp, TRANSPORT)
