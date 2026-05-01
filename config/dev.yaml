@@ -1,0 +1,3 @@
+# config/dev.yaml — overlay for ENVIRONMENT=dev.
+# Empty placeholder; service_url and registry_url already point at compose
+# hostnames in default.yaml.

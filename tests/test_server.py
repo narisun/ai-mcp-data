@@ -25,11 +25,15 @@ _XFAIL_REASON = (
 @pytest.fixture(autouse=True)
 def env_vars(monkeypatch):
     """Supply all required env vars and bypass real external connections."""
-    monkeypatch.setenv("DB_HOST", "localhost")
-    monkeypatch.setenv("DB_USER", "test")
+    import os
+    from pathlib import Path
+
+    # Point MCPConfig.load() at the repo's config/ directory (not /app/config).
+    config_dir = str(Path(__file__).resolve().parent.parent / "config")
+    monkeypatch.setenv("CONFIG_DIR", config_dir)
+    monkeypatch.setenv("ENVIRONMENT", "dev")
     monkeypatch.setenv("DB_PASS", "test")
-    monkeypatch.setenv("DB_NAME", "test")
-    monkeypatch.setenv("OPA_URL", "http://localhost:8181/v1/data/mcp/tools/allow")
+    monkeypatch.setenv("REDIS_PASSWORD", "test")
     monkeypatch.setenv("INTERNAL_API_KEY", "test-key")
 
 
